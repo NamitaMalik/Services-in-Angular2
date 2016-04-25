@@ -5,7 +5,7 @@
 import {Component} from 'angular2/core';
 import {BookingService} from "./booking-service";
 import {MyTicketService} from "./myTicket-service";
-import {WindowComponent} from "./window-component";
+import {WindowComponent} from "./window.component";
 import {BookShowComponent} from "./book-show.component";
 @Component({
     selector: 'my-app',
