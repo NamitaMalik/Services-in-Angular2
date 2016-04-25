@@ -32,6 +32,9 @@ body, input[text], button {
 .last-color{
     background-color: #7cfc00;
 }
+.box{
+    border-style: outset;
+}
 
 /*
  * See https://github.com/angular/angular.io/blob/master/public/docs/_examples/styles.css

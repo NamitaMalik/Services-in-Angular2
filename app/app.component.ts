@@ -4,9 +4,9 @@
 
 import {Component} from 'angular2/core';
 import {BookingService} from "./booking-service";
+import {MyTicketService} from "./myTicket-service";
 import {WindowComponent} from "./window-component";
 import {BookShowComponent} from "./book-show.component";
-
 @Component({
     selector: 'my-app',
     template: `
@@ -14,9 +14,8 @@ import {BookShowComponent} from "./book-show.component";
     <book-show></book-show>
     `,
     directives:[WindowComponent,BookShowComponent],
-    providers : [BookingService]
+    providers : [BookingService,MyTicketService]
 })
 
 export class AppComponent {
-    constructor (private bookingService : BookingService ){}
 }
