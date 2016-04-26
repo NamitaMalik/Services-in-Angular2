@@ -8,9 +8,10 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class MyTicketService {
-    constructor(private _http:Http){
+    constructor(private _http:Http) {
     }
-    getTicketData (){
+
+    getTicketData() {
         return this._http.get("./ticketData.json")
             .map(function (response) {
                 return response.json()
