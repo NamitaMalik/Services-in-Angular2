@@ -1,24 +1,24 @@
-# Services-in-Angular2
+# Services In Angular2
 
-This repo contains a small example that discusses use cases of services and also compares **Angular2 services** with **Angular1.x services**.
+This repo contains a small example that discusses use cases of **service**s and also compares **Angular2 services** with **Angular1 services**.
 
-Well, whenever we think about services, two common use cases come into our minds:
+Well, whenever we think about **service**s, two common use cases come into our minds:
 
 * Sharing data between the components of the application
 * Making `http` requests
 
 To demonstrate above use cases, let us take a following example:
 
-Suppose, there is a cinema named as 'ABC'. To keep our example simple, let us assume that cinema has `10` seats only and it sells tickets either through a _ticket window_ or through a ticket booking site named _bookshow.com_.
+Suppose, there is a cinema named as `ABC`. To keep our example simple, let us assume that cinema has `10` seats only and it sells tickets either through a **ticket window** or through a ticket booking site named **bookshow.com**.
 
 So let's break our small application into parts:
 
-* `app component` -> This will be the parent component of our application. This component would include various child components.
-* `book-show component` -> This component would be used by users booking tickets through _bookshow.com_.
-* `window component` -> Operator at ticket window/counter would use this component to book tickets.
-* `booking-service` -> This service gives the number of tickets available.
-* `myTicket-service` -> Ticket details are provided by this service.
-* `ticketData.json` -> This json contains hard coded ticket details for demonstration purpose. We will be maiking a `get` call to fetch data from this `json`.
+* `AppComponent` -> This will be the parent component of our application. This component would include various child components.
+* `BookShowComponent` -> This component would be used by users booking tickets through **bookshow.com**.
+* `WindowComponent` -> Operator at ticket window/counter would use this component to book tickets.
+* `BookingService` -> This **service** gives the number of tickets available.
+* `MyTicketService` -> Ticket details are provided by this **service**.
+* `ticketData.json` -> This json contains hard coded ticket details for demonstration purpose. We will be making a `get` call to fetch data from this `json`.
 
 Now, let's add some code to these components in order to join these parts and make them work.
 
@@ -99,8 +99,8 @@ export class BookShowComponent {
 
 Well, `BookShowComponent` also looks pretty much the same.
 
-So now its time to get into some more action. The first use case that we discussed for **services** was **data sharing** amongst the components.
-Hence, we are making a booking service here, which will give the count of tickets available. Here is the service:
+So now its time to get into some more action. The first use case that we discussed for **service**s was **data sharing** amongst the components.
+Hence, we are making a booking **service** here, which will give the count of tickets available. Here is the **service**:
 
 ```
 import {Injectable} from "angular2/core";
@@ -111,9 +111,9 @@ export class BookingService {
 }
 ```
 
-We have hardcoded the ticket count in this service to `10`. We have named the above file as `booking-service.ts`. It is a common practice to name the service files with `-service` suffix.
+We have hardcoded the ticket count in this **service** to `10`. We have named the above file as `booking-service.ts`. It is a common practice to name the **service** files with `-service` suffix.
 
-Now we want this service to be exposed to our `BookShowComponent` and the `WindowComponent`. To achieve let's add the following lines to our `app.component.ts`:
+Now we want this **service** to be exposed to our `BookShowComponent` and the `WindowComponent`. To achieve let's add the following lines to our `app.component.ts`:
 
 ```import {BookingService} from "./booking-service";
 ```
@@ -122,7 +122,7 @@ Above statement is an import statement while below code needs to be added to the
 ```providers: [BookingService]
 ```
 
-Any service that we want to use, needs to be injected in ```providers```. Now let's see how to use this service in `BookShowComponent` and `WindowComponent`.
+Any **service** that we want to use, needs to be injected in ```providers```. Now let's see how to use this **service** in `BookShowComponent` and `WindowComponent`.
 
 ```
 import {Component} from 'angular2/core';
@@ -188,7 +188,7 @@ export class BookShowComponent {
 
 Now, let's discuss the changes that we have made:
 
-* We have imported the `BookingService` service into these two child components.
+* We have imported the `BookingService` **service** into these two child components.
 * The `WindowComponent` or the `BookShowComponent` are requesting the injection of `BookingService` **object** by declaring the constructor argument with a type.
 
 ```
@@ -198,7 +198,7 @@ Now, let's discuss the changes that we have made:
   
 > Note: `_` is prefixed before variables to denote that they are private variables.
 
-In the `ticketCount` variable we have assigned the `totalTicketCount` which is given by the service `BookingService`.
+In the `ticketCount` variable we have assigned the `totalTicketCount` which is given by the **service** `BookingService`.
 
 So and once user clicks on the `Book Ticket` button in the `WindowComponent`, `bookShow()` function is called, where `totalTicketCount` shared by the `BookingService` is decremented by `1` and the new `_bookingService.totalTicketCount` is then assigned to `ticketCount` to update on the view.
 
