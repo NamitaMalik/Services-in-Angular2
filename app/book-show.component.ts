@@ -29,18 +29,18 @@ import {MyTicketService} from "./myTicket-service";
 })
 
 export class BookShowComponent {
-    constructor(private bookingService:BookingService, private myTicketService:MyTicketService) {
+    constructor(private _bookingService:BookingService, private _myTicketService:MyTicketService) {
     }
 
-    ticketCount = bookingService.totalTicketCount;
+    ticketCount = _bookingService.totalTicketCount;
     ticketData = {};
     dataAvailable = false;
     bookShow = () => {
-        bookingService.totalTicketCount = bookingService.totalTicketCount - 1;
-        this.ticketCount = bookingService.totalTicketCount;
+        _bookingService.totalTicketCount = _bookingService.totalTicketCount - 1;
+        this.ticketCount = _bookingService.totalTicketCount;
     };
     showMyTicket = () => {
-        myTicketService.getTicketData()
+        _myTicketService.getTicketData()
             .subscribe(
                 data => _this.ticketData = data,
                 this.dataAvailable = true
