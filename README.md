@@ -403,11 +403,41 @@ bootstrap(AppComponent, [HTTP_PROVIDERS]);
 
 We are passing `HTTP_PROVIDERS` to `bootstrap()`. `http` module of **Angular2**  exposes `HTTP_PROVIDERS` which has the providers required for making `http` requests.
 
+Also, we need to make one last change that is registering our `MyTicketService` in the `app.component.ts`:
+
+```
+import {Component} from 'angular2/core';
+import {BookingService} from "./booking-service";
+import {MyTicketService} from "./myTicket-service";
+import {WindowComponent} from "./window.component";
+import {BookShowComponent} from "./book-show.component";
+@Component({
+    selector: 'my-app',
+    template: `
+    <cinema-window></cinema-window>
+    <book-show></book-show>
+    `,
+    directives: [WindowComponent, BookShowComponent],
+    providers: [BookingService, MyTicketService]
+})
+
+export class AppComponent {
+}
+```
+
 Well, now if you run the code, you would be able to get the ticket details.
 
 Before we end this blog it would be important for us to discuss the major difference between the **Services in Angular 1.x** and **Services in Angular2**:
 
+**Services in Angular 1.x** are **singleton** i.e. you would get one **object** for the entire application but that is not the case in **Angular2**. You had seen that in our `app.ts`, we had done:
 
+` providers: [BookingService,MyTicketService]`
+
+In the above line we had registered our **providers** `MyTicketService` and `MyTicketService`. Since both of these **providers** are being used all throughout the application, also we had to share data between our components i.e. both the child components, the ideal place to register our both the providers was in `AppComponent`. Had we registered our **provider** separately in each component, then we would have got the separate instance of that **provider** in each component. 
+
+So now suppose that original `totalTicketCount` is `10` and booking the ticket from `WindowComponent` would have decreased the count to `9` and then making a booking from `BookShowComponent`, the count would change to `9`. `9`? But why `9`? Because there would be different instances of `BookingService` in the `WindowComponent` and the `BookShowComponent` .
+
+Hence, this is the major difference between the services in **Angular 1.x and Angular2**.
 
 
 
