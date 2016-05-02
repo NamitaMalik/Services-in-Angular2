@@ -269,7 +269,6 @@ Now, let's make `myTicket-service` which will make `http` request. Here we go:
 ```TypeScript
 import {Injectable} from "angular2/core";
 import {Http} from 'angular2/http';
-import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class MyTicketService {
@@ -285,19 +284,8 @@ export class MyTicketService {
 }
 ```
 
-#RXJS is neede?
-We are importing `Http`. Also we have imported `Observable` from `rxjs`. Ok, so now the question that is coming to our 
-mind is what are `rxjs` and `Observable`. Well let's have a look at these in brief.
-
-So `rxjs` is a library by **Microsoft** which is being used in **Angular 2** for making async calls. So when we make a 
-call suppose `http.get()`, an `Observable` object is returned. `Observables` are though similar to `Promises` and help 
-in managing `async` calls they still are different from **Promises**.
-
-* **Observables** emit multiple values.
-* They are treated as **Arrays** which means we can use **Array** like methods such as **map** , **reduce** etc.
-
-Have a look at the `getTicketData()` function where we are making our `http` request. Response from the request is then 
-fed into a map, where the response is being converted into  **JSON**.
+Here we are importing `Http` and have a look at the `getTicketData()` function where we are making our `http` request. 
+Response from the request is then fed into a map, where the response is being converted into  **JSON**.
 
 Well.. the story doesn't ends here. Now, let's go back to `WindowComponent`. We had made a `showTicket()` function here, 
 which unfortunately as of now is not doing anything. So its time to make it work:
@@ -438,6 +426,16 @@ bootstrap(AppComponent, [HTTP_PROVIDERS]);
 
 We are passing `HTTP_PROVIDERS` to `bootstrap()`. `http` module of **Angular2** exposes `HTTP_PROVIDERS` which has the 
 providers required for making `http` requests.
+
+You can notice that we are also importing `rxjs`so now the question that is coming to our mind is what are `rxjs`. Well 
+let's have a look at these in brief.
+
+`rxjs` is a library by **Microsoft** which is being used in **Angular 2** for making async calls. So when we make a 
+call suppose `http.get()`, an `Observable` object is returned. `Observables` are though similar to `Promises` and help 
+in managing `async` calls they still are different from **Promises**.
+
+* **Observables** emit multiple values.
+* They are treated as **Arrays** which means we can use **Array** like methods such as **map** , **reduce** etc.
 
 Also, we need to make one last change that is registering our `MyTicketService` in the `app.component.ts`:
 
