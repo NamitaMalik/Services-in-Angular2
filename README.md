@@ -1,6 +1,7 @@
 # Services In Angular2
 
-This repo contains a small example that discusses use cases of **service**s and also compares **Angular2 services** with **Angular1 services**.
+This repo contains a small example that discusses use cases of **service**s and also compares **Angular2 services** with
+**Angular1 services**.
 
 Well, whenever we think about **service**s, two common use cases come into our minds:
 
@@ -9,22 +10,25 @@ Well, whenever we think about **service**s, two common use cases come into our m
 
 To demonstrate above use cases, let us take a following example:
 
-Suppose, there is a cinema named as `ABC`. To keep our example simple, let us assume that cinema has `10` seats only and it sells tickets either through a **ticket window** or through a ticket booking site named **bookshow.com**.
+Suppose, there is a cinema named as `ABC`. To keep our example simple, let us assume that cinema has `10` seats only and
+it sells tickets either through a **ticket window** or through a ticket booking site named **bookshow.com**.
 
-So let's break our small application into parts:
+So let's break our application into small parts:
 
-* `AppComponent` -> This will be the parent component of our application. This component would include various child components.
+* `AppComponent` -> This will be the parent component of our application. This component would include various child
+components.
 * `BookShowComponent` -> This component would be used by users booking tickets through **bookshow.com**.
 * `WindowComponent` -> Operator at ticket window/counter would use this component to book tickets.
 * `BookingService` -> This **service** gives the number of tickets available.
 * `MyTicketService` -> Ticket details are provided by this **service**.
-* `ticketData.json` -> This json contains hard coded ticket details for demonstration purpose. We will be making a `get` call to fetch data from this `json`.
+* `ticketData.json` -> This json contains hard coded ticket details for demonstration purpose. We will be making a `get`
+ all to fetch data from this `json`.
 
 Now, let's add some code to these components in order to join these parts and make them work.
 
-Here is the 'app.component.ts' file:
+Here is the `app.component.ts` file:
 
-```
+```TypeScript
 import {Component} from 'angular2/core';
 import {WindowComponent} from "./window.component";
 import {BookShowComponent} from "./book-show.component";
@@ -45,7 +49,8 @@ In the above code, we have simply added two child components i.e. `WindowCompone
 
 Now, let's have a look at these two components:
 
-```window.component.ts
+**window.component.ts**
+```TypeScript
 import {Component} from 'angular2/core';
 
 @Component({
@@ -67,12 +72,15 @@ export class WindowComponent {
     showTicket = () => {
 }
 ```
-We have two functions : `bookTicket` and `showTicket` in the `WindowComponent`. As the name suggests `bookTicket` component will be used to book tickets while `showTicket` component will be used to display the ticket details.
-We also have a variabke `ticketCount` which is empty so far but will be displaying the number of tickets available.
+
+We have two functions : `bookTicket` and `showTicket` in the `WindowComponent`. As the name suggests `bookTicket` 
+component will be used to book tickets while `showTicket` component will be used to display the ticket details.
+
+We also have a variable `ticketCount` which is empty so far but will be displaying the number of tickets available.
 
 Before moving ahead, let's have a look at the `BookShowComponent` too:
 
-```
+```TypeScript
 import {Component} from 'angular2/core';
 
 @Component({
@@ -99,10 +107,12 @@ export class BookShowComponent {
 
 Well, `BookShowComponent` also looks pretty much the same.
 
-So now its time to get into some more action. The first use case that we discussed for **service**s was **data sharing** amongst the components.
+So now its time to get into some more action. The first use case that we discussed for **service**s was **data sharing**
+amongst the components.
+
 Hence, we are making a booking **service** here, which will give the count of tickets available. Here is the **service**:
 
-```
+```TypeScript
 import {Injectable} from "angular2/core";
 
 @Injectable()
@@ -438,16 +448,3 @@ In the above line we had registered our **providers** `MyTicketService` and `MyT
 So now suppose that original `totalTicketCount` is `10` and booking the ticket from `WindowComponent` would have decreased the count to `9` and then making a booking from `BookShowComponent`, the count would change to `9`. `9`? But why `9`? Because there would be different instances of `BookingService` in the `WindowComponent` and the `BookShowComponent` .
 
 Hence, this is the major difference between the services in **Angular 1.x and Angular2**.
-
-
-
-
-
-
-
-  
-
-
-
-
-
