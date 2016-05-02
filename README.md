@@ -22,7 +22,7 @@ components.
 * `BookingService` -> This **service** gives the number of tickets available.
 * `MyTicketService` -> Ticket details are provided by this **service**.
 * `ticketData.json` -> This json contains hard coded ticket details for demonstration purpose. We will be making a `get`
- all to fetch data from this `json`.
+ call to fetch data from this `json`.
 
 Now, let's add some code to these components in order to join these parts and make them work.
 
@@ -469,14 +469,14 @@ not the case in **Angular2**. You had seen that in our `app.ts`, we had done:
 
 `providers: [BookingService, MyTicketService]`
 
-In the above line we had registered our **providers** `MyTicketService` and `MyTicketService`. Since both of these 
-**providers** are being used all throughout the application, also we had to share data between our components i.e. both 
+In the above line we had registered our **providers** `BookingService` and `MyTicketService`. Since both of these 
+**providers** are being used all throughout the application, also we had to share data between our components i.e. between both 
 the child components, the ideal place to register our both the providers was in `AppComponent`. Had we registered our 
 **provider** separately in each component, then we would have got the separate instance of that **provider** in each 
 component. 
 
 So now suppose that original `totalTicketCount` is `10` and booking the ticket from `WindowComponent` would have 
-decreased the count to `9` and then making a booking from `BookShowComponent`, the count would change to `9`. `9`? But 
+decreased the count to `9` and then on making a booking from `BookShowComponent`, the count would change to `9`. `9`? But 
 why `9`? Because there would be different instances of `BookingService` in the `WindowComponent` and the `BookShowComponent`.
 
 Hence, this is the major difference between the services in **Angular 1.x and Angular2**.
