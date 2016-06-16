@@ -480,3 +480,13 @@ decreased the count to `9` and then on making a booking from `BookShowComponent`
 why `9`? Because there would be different instances of `BookingService` in the `WindowComponent` and the `BookShowComponent`.
 
 Hence, this is the major difference between the services in **Angular 1.x and Angular2**.
+
+Follow Me
+---
+[Github](https://github.com/NamitaMalik)
+
+[Twitter](https://twitter.com/namita13_04)
+
+[LinkedIn](https://in.linkedin.com/in/namita-malik-a7885b23)
+
+[More Blogs By Me](https://namitamalik.github.io/)
