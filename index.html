@@ -20,7 +20,7 @@
 
     <section class="main-content">
       <h1>
-<a id="services-in-angular2" class="anchor" href="#services-in-angular2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Services In Angular2</h1>
+<a id="services-in-angular2updated" class="anchor" href="#services-in-angular2updated" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Services In Angular2[Updated]</h1>
 
 <p>This repo contains a small example that discusses use cases of <strong>service</strong>s and also compares <strong>Angular2 services</strong> with
 <strong>Angular1 services</strong>.</p>
@@ -60,7 +60,7 @@ call to fetch data from this <code>json</code>.</li>
 
 <p>Here is the <code>app.component.ts</code> file:</p>
 
-<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Component} <span class="pl-k">from</span> <span class="pl-s">'angular2/core'</span>;
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Component} <span class="pl-k">from</span> <span class="pl-s">'@angular/core'</span>;
 <span class="pl-k">import</span> {WindowComponent} <span class="pl-k">from</span> <span class="pl-s">"./window.component"</span>;
 <span class="pl-k">import</span> {BookShowComponent} <span class="pl-k">from</span> <span class="pl-s">"./book-show.component"</span>;
 @Component({
@@ -81,26 +81,29 @@ call to fetch data from this <code>json</code>.</li>
 
 <p><strong>window.component.ts</strong></p>
 
-<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Component} <span class="pl-k">from</span> <span class="pl-s">'angular2/core'</span>;
+<pre><code>import {Component} from '@angular/core';
 
 @Component({
-    selector: <span class="pl-s">'cinema-window'</span>,
-    template: <span class="pl-s">`</span>
-<span class="pl-s">    &lt;div&gt;</span>
-<span class="pl-s">        &lt;h1&gt;ABC Cinemas&lt;/h1&gt;</span>
-<span class="pl-s">        &lt;span&gt;Hello Admin&lt;/span&gt;</span>
-<span class="pl-s">        &lt;p&gt;Currently, Number of Tickets available are: {{ticketCount}}&lt;/p&gt;</span>
-<span class="pl-s">        &lt;button (click)="bookTicket()"&gt;Book Ticket&lt;/button&gt;</span>
-<span class="pl-s">        &lt;button (click)="showTicket()"&gt;Show Ticket&lt;/button&gt;</span>
-<span class="pl-s">    &lt;/div&gt;  `</span>
+    selector: 'cinema-window',
+    template: `
+    &lt;div&gt;
+        &lt;h1&gt;ABC Cinemas&lt;/h1&gt;
+        &lt;span&gt;Hello Admin&lt;/span&gt;
+        &lt;p&gt;Currently, Number of Tickets available are: {{ticketCount}}&lt;/p&gt;
+        &lt;button (click)="bookTicket()"&gt;Book Ticket&lt;/button&gt;
+        &lt;button (click)="showTicket()"&gt;Show Ticket&lt;/button&gt;
+    &lt;/div&gt;
+    `
 })
 
-<span class="pl-k">export</span> <span class="pl-k">class</span> <span class="pl-en">WindowComponent</span> {
-    <span class="pl-v">ticketCount</span> <span class="pl-k">=</span> <span class="pl-s">''</span>;
-    <span class="pl-v">bookTicket</span> <span class="pl-k">=</span> () <span class="pl-k">=&gt;</span> {
+export class WindowComponent {
+    ticketCount = '';
+    bookTicket = () =&gt; {
     };
-    <span class="pl-v">showTicket</span> <span class="pl-k">=</span> () <span class="pl-k">=&gt;</span> {
-}</pre></div>
+    showTicket = () =&gt; {
+    };
+}
+</code></pre>
 
 <p>We have two functions : <code>bookTicket</code> and <code>showTicket</code> in the <code>WindowComponent</code>. As the name suggests <code>bookTicket</code> 
 component will be used to book tickets while <code>showTicket</code> component will be used to display the ticket details.</p>
@@ -134,6 +137,30 @@ component will be used to book tickets while <code>showTicket</code> component w
     }
 }</pre></div>
 
+<pre><code>import {Component} from '@angular/core';
+
+@Component({
+    selector: 'book-show',
+    template: `
+    &lt;div&gt;
+        &lt;h1&gt;Welcome to bookshow.com&lt;/h1&gt;
+        &lt;span&gt;Welcome User&lt;/span&gt;
+        &lt;p&gt;Currently, Number of Tickets available are: {{ticketCount}}&lt;/p&gt;
+        &lt;button (click)="bookShow()"&gt;Book Ticket&lt;/button&gt;
+        &lt;button (click)="showMyTicket()"&gt;Show Ticket&lt;/button&gt;
+    &lt;/div&gt;
+    `
+})
+
+export class BookShowComponent {
+    ticketCount ';
+    bookShow = () =&gt; {
+    };
+    showMyTicket = () =&gt; {
+    };
+}
+</code></pre>
+
 <p>Well, <code>BookShowComponent</code> also looks pretty much the same.</p>
 
 <p>So now its time to get into some more action. The first use case that we discussed for <strong>service</strong>s was <strong>data sharing</strong>
@@ -143,7 +170,7 @@ amongst the components.</p>
 
 <p><strong>booking-service.ts</strong></p>
 
-<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Injectable} <span class="pl-k">from</span> <span class="pl-s">"angular2/core"</span>;
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Injectable} <span class="pl-k">from</span> <span class="pl-s">"@angular/core"</span>;
 
 @Injectable()
 <span class="pl-k">export</span> <span class="pl-k">class</span> <span class="pl-en">BookingService</span> {
@@ -164,7 +191,7 @@ the following lines to our <code>app.component.ts</code>:</p>
 
 <p>Now, our <code>app.component.ts</code> would look like:</p>
 
-<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Component} <span class="pl-k">from</span> <span class="pl-s">'angular2/core'</span>;
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Component} <span class="pl-k">from</span> <span class="pl-s">'@angular/core'</span>;
 <span class="pl-k">import</span> {BookingService} <span class="pl-k">from</span> <span class="pl-s">"./booking-service"</span>;
 <span class="pl-k">import</span> {WindowComponent} <span class="pl-k">from</span> <span class="pl-s">"./window.component"</span>;
 <span class="pl-k">import</span> {BookShowComponent} <span class="pl-k">from</span> <span class="pl-s">"./book-show.component"</span>;
@@ -184,7 +211,7 @@ the following lines to our <code>app.component.ts</code>:</p>
 <p>Any <strong>service</strong> that we want to use, needs to be injected in <code>providers</code>. Now let's see how to use this <strong>service</strong> in 
 <code>BookShowComponent</code> and <code>WindowComponent</code>.</p>
 
-<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Component} <span class="pl-k">from</span> <span class="pl-s">'angular2/core'</span>;
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Component} <span class="pl-k">from</span> <span class="pl-s">'@angular/core'</span>;
 <span class="pl-k">import</span> {BookingService} <span class="pl-k">from</span> <span class="pl-s">"./booking-service"</span>;
 
 @Component({
@@ -200,12 +227,12 @@ the following lines to our <code>app.component.ts</code>:</p>
 <span class="pl-s">    `</span>
 })
 <span class="pl-k">export</span> <span class="pl-k">class</span> <span class="pl-en">WindowComponent</span> {
-    <span class="pl-en">constructor</span>(<span class="pl-k">private</span> <span class="pl-v">_bookingService</span>:BookingService) {
+    <span class="pl-en">constructor</span>(<span class="pl-k">public</span> <span class="pl-v">bookingService</span>:BookingService) {
     }
-    <span class="pl-v">ticketCount</span> <span class="pl-k">=</span> _bookingService.totalTicketCount;
+    <span class="pl-v">ticketCount</span> <span class="pl-k">=</span> <span class="pl-c1">this</span>.bookingService.totalTicketCount;
     <span class="pl-v">bookTicket</span> <span class="pl-k">=</span> () <span class="pl-k">=&gt;</span> {
-        _bookingService.totalTicketCount <span class="pl-k">=</span> _bookingService.totalTicketCount <span class="pl-k">-</span> <span class="pl-c1">1</span>;
-        <span class="pl-c1">this</span>.ticketCount <span class="pl-k">=</span> _bookingService.totalTicketCount;
+        <span class="pl-c1">this</span>.bookingService.totalTicketCount <span class="pl-k">=</span> <span class="pl-c1">this</span>.bookingService.totalTicketCount <span class="pl-k">-</span> <span class="pl-c1">1</span>;
+        <span class="pl-c1">this</span>.ticketCount <span class="pl-k">=</span> <span class="pl-c1">this</span>.bookingService.totalTicketCount;
     };
     <span class="pl-v">showTicket</span> <span class="pl-k">=</span> () <span class="pl-k">=&gt;</span>{
     }
@@ -213,7 +240,7 @@ the following lines to our <code>app.component.ts</code>:</p>
 
 <p>After making similar changes to the <code>BookShowComponent</code>, it will look like this:</p>
 
-<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Component} <span class="pl-k">from</span> <span class="pl-s">'angular2/core'</span>;
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Component} <span class="pl-k">from</span> <span class="pl-s">'@angular/core'</span>;
 <span class="pl-k">import</span> {BookingService} <span class="pl-k">from</span> <span class="pl-s">"./booking-service"</span>;
 
 @Component({
@@ -230,13 +257,13 @@ the following lines to our <code>app.component.ts</code>:</p>
 })
 
 <span class="pl-k">export</span> <span class="pl-k">class</span> <span class="pl-en">BookShowComponent</span> {
-    <span class="pl-en">constructor</span>(<span class="pl-k">private</span> <span class="pl-v">_bookingService</span>:BookingService) {
+    <span class="pl-en">constructor</span>(<span class="pl-k">public</span> <span class="pl-v">bookingService</span>:BookingService) {
     }
 
-    <span class="pl-v">ticketCount</span> <span class="pl-k">=</span> _bookingService.totalTicketCount;
+    <span class="pl-v">ticketCount</span> <span class="pl-k">=</span> <span class="pl-c1">this</span>.bookingService.totalTicketCount;
     <span class="pl-v">bookShow</span> <span class="pl-k">=</span> () <span class="pl-k">=&gt;</span> {
-        _bookingService.totalTicketCount <span class="pl-k">=</span> _bookingService.totalTicketCount <span class="pl-k">-</span> <span class="pl-c1">1</span>;
-        <span class="pl-c1">this</span>.ticketCount <span class="pl-k">=</span> _bookingService.totalTicketCount;
+        <span class="pl-c1">this</span>.bookingService.totalTicketCount <span class="pl-k">=</span> <span class="pl-c1">this</span>.bookingService.totalTicketCount <span class="pl-k">-</span> <span class="pl-c1">1</span>;
+        <span class="pl-c1">this</span>.ticketCount <span class="pl-k">=</span> <span class="pl-c1">this</span>.bookingService.totalTicketCount;
     };
     <span class="pl-v">showMyTicket</span> <span class="pl-k">=</span> () <span class="pl-k">=&gt;</span> {
     }
@@ -250,17 +277,13 @@ the following lines to our <code>app.component.ts</code>:</p>
 declaring the constructor argument with a type.</li>
 </ul>
 
-<div class="highlight highlight-source-ts"><pre>constructor(private _bookingService:BookingService) {
+<div class="highlight highlight-source-ts"><pre>constructor(public bookingService:BookingService) {
 }</pre></div>
-
-<blockquote>
-<p>Note: <code>_</code> is prefixed before variables to denote that they are private variables.</p>
-</blockquote>
 
 <p>In the <code>ticketCount</code> variable we have assigned the <code>totalTicketCount</code> which is given by the <strong>service</strong> <code>BookingService</code>.</p>
 
 <p>So and once user clicks on the <code>Book Ticket</code> button in the <code>WindowComponent</code>, <code>bookShow()</code> function is called, where 
-<code>totalTicketCount</code> shared by the <code>BookingService</code> is decremented by <code>1</code> and the new <code>_bookingService.totalTicketCount</code> is
+<code>totalTicketCount</code> shared by the <code>BookingService</code> is decremented by <code>1</code> and the new <code>bookingService.totalTicketCount</code> is
 then assigned to <code>ticketCount</code> to update on the view.</p>
 
 <p>Supposing that <code>bookShow()</code> function has been called once in the <code>WindowComponent</code>, now the <code>totalTicketCount</code> would be 
@@ -291,16 +314,16 @@ which we would be fetching the ticket details.</p>
 
 <p><strong>myTicket-service.ts</strong></p>
 
-<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Injectable} <span class="pl-k">from</span> <span class="pl-s">"angular2/core"</span>;
-<span class="pl-k">import</span> {Http} <span class="pl-k">from</span> <span class="pl-s">'angular2/http'</span>;
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Injectable} <span class="pl-k">from</span> <span class="pl-s">"@angular2/core"</span>;
+<span class="pl-k">import</span> {Http} <span class="pl-k">from</span> <span class="pl-s">'@angular/http'</span>;
 
 @Injectable()
 <span class="pl-k">export</span> <span class="pl-k">class</span> <span class="pl-en">MyTicketService</span> {
-    <span class="pl-en">constructor</span>(<span class="pl-k">private</span> <span class="pl-v">_http</span>:Http) {
+    <span class="pl-en">constructor</span>(<span class="pl-k">public</span> <span class="pl-v">http</span>:Http) {
     }
 
     <span class="pl-en">getTicketData</span>() {
-        <span class="pl-k">return</span> <span class="pl-c1">this</span>._http.get(<span class="pl-s">"./ticketData.json"</span>)
+        <span class="pl-k">return</span> <span class="pl-c1">this</span>.http.get(<span class="pl-s">"./ticketData.json"</span>)
             .map(<span class="pl-k">function</span> (<span class="pl-v">response</span>) {
                 <span class="pl-k">return</span> response.json()
             });
@@ -313,7 +336,7 @@ Response from the request is then fed into a map, where the response is being co
 <p>Well.. the story doesn't ends here. Now, let's go back to <code>WindowComponent</code>. We had made a <code>showTicket()</code> function here, 
 which unfortunately as of now is not doing anything. So its time to make it work:</p>
 
-<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Component} <span class="pl-k">from</span> <span class="pl-s">'angular2/core'</span>;
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Component} <span class="pl-k">from</span> <span class="pl-s">'@angular/core'</span>;
 <span class="pl-k">import</span> {BookingService} <span class="pl-k">from</span> <span class="pl-s">"./booking-service"</span>;
 <span class="pl-k">import</span> {MyTicketService} <span class="pl-k">from</span> <span class="pl-s">"./myTicket-service"</span>;
 
@@ -341,24 +364,28 @@ which unfortunately as of now is not doing anything. So its time to make it work
 })
 
 <span class="pl-k">export</span> <span class="pl-k">class</span> <span class="pl-en">WindowComponent</span> {
-    <span class="pl-en">constructor</span>(<span class="pl-k">private</span> <span class="pl-v">_bookingService</span>:BookingService, <span class="pl-k">private</span> <span class="pl-v">_myTicketService</span>:MyTicketService) {
+    <span class="pl-en">constructor</span>(<span class="pl-k">public</span> <span class="pl-v">bookingService</span>:BookingService, <span class="pl-k">public</span> <span class="pl-v">myTicketService</span>:MyTicketService) {
     }
 
     <span class="pl-v">ticketData</span> <span class="pl-k">=</span> {};
-    <span class="pl-v">dataAvailable</span> <span class="pl-k">=</span> <span class="pl-c1">false</span>;
-    <span class="pl-v">ticketCount</span> <span class="pl-k">=</span> _bookingService.totalTicketCount;
+    <span class="pl-v">dataAvailable</span>:<span class="pl-k">boolean</span> <span class="pl-k">=</span> <span class="pl-c1">false</span>;
+    <span class="pl-v">ticketCount</span> <span class="pl-k">=</span> <span class="pl-c1">this</span>.bookingService.totalTicketCount;
+    <span class="pl-v">errorMessage</span> <span class="pl-k">=</span> <span class="pl-s">''</span>;
     <span class="pl-v">bookTicket</span> <span class="pl-k">=</span> () <span class="pl-k">=&gt;</span> {
-        _bookingService.totalTicketCount <span class="pl-k">=</span> _bookingService.totalTicketCount <span class="pl-k">-</span> <span class="pl-c1">1</span>;
-        <span class="pl-c1">this</span>.ticketCount <span class="pl-k">=</span> _bookingService.totalTicketCount;
+        <span class="pl-c1">this</span>.bookingService.totalTicketCount <span class="pl-k">=</span> <span class="pl-c1">this</span>.bookingService.totalTicketCount <span class="pl-k">-</span> <span class="pl-c1">1</span>;
+        <span class="pl-c1">this</span>.ticketCount <span class="pl-k">=</span> <span class="pl-c1">this</span>.bookingService.totalTicketCount;
     };
     <span class="pl-v">showTicket</span> <span class="pl-k">=</span> () <span class="pl-k">=&gt;</span> {
-        _myTicketService.getTicketData()
+        <span class="pl-c1">this</span>.myTicketService.getTicketData()
             .subscribe(
-                data <span class="pl-k">=&gt;</span> <span class="pl-c1">this</span>.ticketData <span class="pl-k">=</span> data,
-                <span class="pl-c1">this</span>.dataAvailable <span class="pl-k">=</span> <span class="pl-c1">true</span>,
-                (error) <span class="pl-k">=&gt;</span> {
-                }
-            );
+            (data) <span class="pl-k">=&gt;</span> {
+                <span class="pl-c1">this</span>.ticketData <span class="pl-k">=</span> data,
+                    <span class="pl-c1">this</span>.dataAvailable <span class="pl-k">=</span> <span class="pl-c1">true</span>
+            },
+            (error) <span class="pl-k">=&gt;</span> {
+                <span class="pl-c1">this</span>.errorMessage <span class="pl-k">=</span> error;
+            }
+        );
     }
 }</pre></div>
 
@@ -381,7 +408,7 @@ the <strong>onNext</strong> method which will receive the <strong>HTTP</strong> 
 
 <p>Let's make the similar changes to <code>BookShowComponent</code>. So, <code>BookShowComponent</code> would look something like:</p>
 
-<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Component} <span class="pl-k">from</span> <span class="pl-s">'angular2/core'</span>;
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Component} <span class="pl-k">from</span> <span class="pl-s">'@angular/core'</span>;
 <span class="pl-k">import</span> {BookingService} <span class="pl-k">from</span> <span class="pl-s">"./booking-service"</span>;
 <span class="pl-k">import</span> {MyTicketService} <span class="pl-k">from</span> <span class="pl-s">"./myTicket-service"</span>;
 
@@ -407,26 +434,30 @@ the <strong>onNext</strong> method which will receive the <strong>HTTP</strong> 
 <span class="pl-s">    &lt;/div&gt;</span>
 <span class="pl-s">    `</span>
 })
+
 <span class="pl-k">export</span> <span class="pl-k">class</span> <span class="pl-en">BookShowComponent</span> {
-    <span class="pl-en">constructor</span>(<span class="pl-k">private</span> <span class="pl-v">_bookingService</span>:BookingService, <span class="pl-k">private</span> <span class="pl-v">_myTicketService</span>:MyTicketService) {
+    <span class="pl-en">constructor</span>(<span class="pl-k">public</span> <span class="pl-v">bookingService</span>:BookingService, <span class="pl-k">public</span> <span class="pl-v">myTicketService</span>:MyTicketService) {
     }
 
-    <span class="pl-v">ticketCount</span> <span class="pl-k">=</span> _bookingService.totalTicketCount;
+    <span class="pl-v">ticketCount</span> <span class="pl-k">=</span> <span class="pl-c1">this</span>.bookingService.totalTicketCount;
     <span class="pl-v">ticketData</span> <span class="pl-k">=</span> {};
-    <span class="pl-v">dataAvailable</span> <span class="pl-k">=</span> <span class="pl-c1">false</span>;
+    <span class="pl-v">dataAvailable</span>:<span class="pl-k">boolean</span> <span class="pl-k">=</span> <span class="pl-c1">false</span>;
+    <span class="pl-v">errorMessage</span> <span class="pl-k">=</span> <span class="pl-s">''</span>;
     <span class="pl-v">bookShow</span> <span class="pl-k">=</span> () <span class="pl-k">=&gt;</span> {
-        _bookingService.totalTicketCount <span class="pl-k">=</span> _bookingService.totalTicketCount <span class="pl-k">-</span> <span class="pl-c1">1</span>;
-        <span class="pl-c1">this</span>.ticketCount <span class="pl-k">=</span> _bookingService.totalTicketCount;
+        <span class="pl-c1">this</span>.bookingService.totalTicketCount <span class="pl-k">=</span> <span class="pl-c1">this</span>.bookingService.totalTicketCount <span class="pl-k">-</span> <span class="pl-c1">1</span>;
+        <span class="pl-c1">this</span>.ticketCount <span class="pl-k">=</span> <span class="pl-c1">this</span>.bookingService.totalTicketCount;
     };
     <span class="pl-v">showMyTicket</span> <span class="pl-k">=</span> () <span class="pl-k">=&gt;</span> {
-        _myTicketService.getTicketData()
+        <span class="pl-c1">this</span>.myTicketService.getTicketData()
             .subscribe(
-                data <span class="pl-k">=&gt;</span> _this.ticketData <span class="pl-k">=</span> data,
-                <span class="pl-c1">this</span>.dataAvailable <span class="pl-k">=</span> <span class="pl-c1">true</span>
-                , (error) <span class="pl-k">=&gt;</span> {
-
-                }
-            );
+            (data) <span class="pl-k">=&gt;</span> {
+                <span class="pl-c1">this</span>.ticketData <span class="pl-k">=</span> data
+                    <span class="pl-c1">this</span>.dataAvailable <span class="pl-k">=</span> <span class="pl-c1">true</span>
+            }
+            , (error) <span class="pl-k">=&gt;</span> {
+                <span class="pl-c1">this</span>.errorMessage <span class="pl-k">=</span> error;
+            }
+        );
     }
 }</pre></div>
 
@@ -436,9 +467,9 @@ the <strong>onNext</strong> method which will receive the <strong>HTTP</strong> 
 
 <p><strong>main.ts</strong></p>
 
-<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {bootstrap}      <span class="pl-k">from</span> <span class="pl-s">'angular2/platform/browser'</span>;
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {bootstrap}      <span class="pl-k">from</span> <span class="pl-s">'@angular/platform-browser-dynamic'</span>;
 <span class="pl-k">import</span> {AppComponent}   <span class="pl-k">from</span> <span class="pl-s">'./app.component'</span>;
-<span class="pl-k">import</span> {HTTP_PROVIDERS} <span class="pl-k">from</span> <span class="pl-s">'angular2/http'</span>;
+<span class="pl-k">import</span> {HTTP_PROVIDERS} <span class="pl-k">from</span> <span class="pl-s">'@angular/http'</span>;
 <span class="pl-k">import</span> <span class="pl-s">'rxjs/Rx'</span>;
 
 bootstrap(AppComponent, [HTTP_PROVIDERS]);</pre></div>
@@ -461,7 +492,7 @@ in managing <code>async</code> calls they still are different from <strong>Promi
 
 <p>Also, we need to make one last change that is registering our <code>MyTicketService</code> in the <code>app.component.ts</code>:</p>
 
-<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Component} <span class="pl-k">from</span> <span class="pl-s">'angular2/core'</span>;
+<div class="highlight highlight-source-ts"><pre><span class="pl-k">import</span> {Component} <span class="pl-k">from</span> <span class="pl-s">'@angular/core'</span>;
 <span class="pl-k">import</span> {BookingService} <span class="pl-k">from</span> <span class="pl-s">"./booking-service"</span>;
 <span class="pl-k">import</span> {MyTicketService} <span class="pl-k">from</span> <span class="pl-s">"./myTicket-service"</span>;
 <span class="pl-k">import</span> {WindowComponent} <span class="pl-k">from</span> <span class="pl-s">"./window.component"</span>;
