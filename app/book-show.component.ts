@@ -29,19 +29,19 @@ import {MyTicketService} from "./myTicket-service";
 })
 
 export class BookShowComponent {
-    constructor(public _bookingService:BookingService, public _myTicketService:MyTicketService) {
+    constructor(public bookingService:BookingService, public myTicketService:MyTicketService) {
     }
 
-    ticketCount = this._bookingService.totalTicketCount;
+    ticketCount = this.bookingService.totalTicketCount;
     ticketData = {};
     dataAvailable:boolean = false;
     errorMessage = '';
     bookShow = () => {
-        this._bookingService.totalTicketCount = this._bookingService.totalTicketCount - 1;
-        this.ticketCount = this._bookingService.totalTicketCount;
+        this.bookingService.totalTicketCount = this.bookingService.totalTicketCount - 1;
+        this.ticketCount = this.bookingService.totalTicketCount;
     };
     showMyTicket = () => {
-        this._myTicketService.getTicketData()
+        this.myTicketService.getTicketData()
             .subscribe(
             (data) => {
                 this.ticketData = data

@@ -29,7 +29,7 @@ Now, let's add some code to these components in order to join these parts and ma
 Here is the `app.component.ts` file:
 
 ```TypeScript
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {WindowComponent} from "./window.component";
 import {BookShowComponent} from "./book-show.component";
 @Component({
@@ -50,8 +50,8 @@ In the above code, we have simply added two child components i.e. `WindowCompone
 Now, let's have a look at these two components:
 
 **window.component.ts**
-```TypeScript
-import {Component} from 'angular2/core';
+```
+import {Component} from '@angular/core';
 
 @Component({
     selector: 'cinema-window',
@@ -62,7 +62,8 @@ import {Component} from 'angular2/core';
         <p>Currently, Number of Tickets available are: {{ticketCount}}</p>
         <button (click)="bookTicket()">Book Ticket</button>
         <button (click)="showTicket()">Show Ticket</button>
-    </div>  `
+    </div>
+    `
 })
 
 export class WindowComponent {
@@ -70,6 +71,7 @@ export class WindowComponent {
     bookTicket = () => {
     };
     showTicket = () => {
+    };
 }
 ```
 
@@ -106,6 +108,31 @@ export class BookShowComponent {
 }
 ```
 
+```
+import {Component} from '@angular/core';
+
+@Component({
+    selector: 'book-show',
+    template: `
+    <div>
+        <h1>Welcome to bookshow.com</h1>
+        <span>Welcome User</span>
+        <p>Currently, Number of Tickets available are: {{ticketCount}}</p>
+        <button (click)="bookShow()">Book Ticket</button>
+        <button (click)="showMyTicket()">Show Ticket</button>
+    </div>
+    `
+})
+
+export class BookShowComponent {
+    ticketCount ';
+    bookShow = () => {
+    };
+    showMyTicket = () => {
+    };
+}
+```
+
 Well, `BookShowComponent` also looks pretty much the same.
 
 So now its time to get into some more action. The first use case that we discussed for **service**s was **data sharing**
@@ -115,7 +142,7 @@ Hence, we are making a booking **service** here, which will give the count of ti
 
 **booking-service.ts**
 ```TypeScript
-import {Injectable} from "angular2/core";
+import {Injectable} from "@angular/core";
 
 @Injectable()
 export class BookingService {
@@ -138,7 +165,7 @@ Above statement is an import statement while below code needs to be added to the
 Now, our `app.component.ts` would look like:
 
 ```TypeScript
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {BookingService} from "./booking-service";
 import {WindowComponent} from "./window.component";
 import {BookShowComponent} from "./book-show.component";
@@ -160,7 +187,7 @@ Any **service** that we want to use, needs to be injected in `providers`. Now le
 `BookShowComponent` and `WindowComponent`.
 
 ```TypeScript
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {BookingService} from "./booking-service";
 
 @Component({
@@ -176,12 +203,12 @@ import {BookingService} from "./booking-service";
     `
 })
 export class WindowComponent {
-    constructor(private _bookingService:BookingService) {
+    constructor(public bookingService:BookingService) {
     }
-    ticketCount = _bookingService.totalTicketCount;
+    ticketCount = this.bookingService.totalTicketCount;
     bookTicket = () => {
-        _bookingService.totalTicketCount = _bookingService.totalTicketCount - 1;
-        this.ticketCount = _bookingService.totalTicketCount;
+        this.bookingService.totalTicketCount = this.bookingService.totalTicketCount - 1;
+        this.ticketCount = this.bookingService.totalTicketCount;
     };
     showTicket = () =>{
     }
@@ -191,7 +218,7 @@ export class WindowComponent {
 After making similar changes to the `BookShowComponent`, it will look like this:
 
 ```TypeScript
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {BookingService} from "./booking-service";
 
 @Component({
@@ -208,13 +235,13 @@ import {BookingService} from "./booking-service";
 })
 
 export class BookShowComponent {
-    constructor(private _bookingService:BookingService) {
+    constructor(public bookingService:BookingService) {
     }
 
-    ticketCount = _bookingService.totalTicketCount;
+    ticketCount = this.bookingService.totalTicketCount;
     bookShow = () => {
-        _bookingService.totalTicketCount = _bookingService.totalTicketCount - 1;
-        this.ticketCount = _bookingService.totalTicketCount;
+        this.bookingService.totalTicketCount = this.bookingService.totalTicketCount - 1;
+        this.ticketCount = this.bookingService.totalTicketCount;
     };
     showMyTicket = () => {
     }
@@ -228,16 +255,14 @@ Now, let's discuss the changes that we have made:
 declaring the constructor argument with a type.
 
 ```TypeScript
-constructor(private _bookingService:BookingService) {
+constructor(public bookingService:BookingService) {
 }
 ```  
   
-> Note: `_` is prefixed before variables to denote that they are private variables.
-
 In the `ticketCount` variable we have assigned the `totalTicketCount` which is given by the **service** `BookingService`.
 
 So and once user clicks on the `Book Ticket` button in the `WindowComponent`, `bookShow()` function is called, where 
-`totalTicketCount` shared by the `BookingService` is decremented by `1` and the new `_bookingService.totalTicketCount` is
+`totalTicketCount` shared by the `BookingService` is decremented by `1` and the new `bookingService.totalTicketCount` is
 then assigned to `ticketCount` to update on the view.
 
 Supposing that `bookShow()` function has been called once in the `WindowComponent`, now the `totalTicketCount` would be 
@@ -267,16 +292,16 @@ Now, let's make `myTicket-service` which will make `http` request. Here we go:
 
 **myTicket-service.ts**
 ```TypeScript
-import {Injectable} from "angular2/core";
-import {Http} from 'angular2/http';
+import {Injectable} from "@angular2/core";
+import {Http} from '@angular/http';
 
 @Injectable()
 export class MyTicketService {
-    constructor(private _http:Http) {
+    constructor(public http:Http) {
     }
 
     getTicketData() {
-        return this._http.get("./ticketData.json")
+        return this.http.get("./ticketData.json")
             .map(function (response) {
                 return response.json()
             });
@@ -291,7 +316,7 @@ Well.. the story doesn't ends here. Now, let's go back to `WindowComponent`. We 
 which unfortunately as of now is not doing anything. So its time to make it work:
 
 ```TypeScript
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {BookingService} from "./booking-service";
 import {MyTicketService} from "./myTicket-service";
 
@@ -319,24 +344,28 @@ import {MyTicketService} from "./myTicket-service";
 })
 
 export class WindowComponent {
-    constructor(private _bookingService:BookingService, private _myTicketService:MyTicketService) {
+    constructor(public bookingService:BookingService, public myTicketService:MyTicketService) {
     }
 
     ticketData = {};
-    dataAvailable = false;
-    ticketCount = _bookingService.totalTicketCount;
+    dataAvailable:boolean = false;
+    ticketCount = this.bookingService.totalTicketCount;
+    errorMessage = '';
     bookTicket = () => {
-        _bookingService.totalTicketCount = _bookingService.totalTicketCount - 1;
-        this.ticketCount = _bookingService.totalTicketCount;
+        this.bookingService.totalTicketCount = this.bookingService.totalTicketCount - 1;
+        this.ticketCount = this.bookingService.totalTicketCount;
     };
     showTicket = () => {
-        _myTicketService.getTicketData()
+        this.myTicketService.getTicketData()
             .subscribe(
-                data => this.ticketData = data,
-                this.dataAvailable = true,
-                (error) => {
-                }
-            );
+            (data) => {
+                this.ticketData = data,
+                    this.dataAvailable = true
+            },
+            (error) => {
+                this.errorMessage = error;
+            }
+        );
     }
 }
 ```
@@ -360,7 +389,7 @@ To start from the top, changes that I have made in the `WindowComponent` are:
 Let's make the similar changes to `BookShowComponent`. So, `BookShowComponent` would look something like:
 
 ```TypeScript
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {BookingService} from "./booking-service";
 import {MyTicketService} from "./myTicket-service";
 
@@ -386,26 +415,30 @@ import {MyTicketService} from "./myTicket-service";
     </div>
     `
 })
+
 export class BookShowComponent {
-    constructor(private _bookingService:BookingService, private _myTicketService:MyTicketService) {
+    constructor(public bookingService:BookingService, public myTicketService:MyTicketService) {
     }
 
-    ticketCount = _bookingService.totalTicketCount;
+    ticketCount = this.bookingService.totalTicketCount;
     ticketData = {};
-    dataAvailable = false;
+    dataAvailable:boolean = false;
+    errorMessage = '';
     bookShow = () => {
-        _bookingService.totalTicketCount = _bookingService.totalTicketCount - 1;
-        this.ticketCount = _bookingService.totalTicketCount;
+        this.bookingService.totalTicketCount = this.bookingService.totalTicketCount - 1;
+        this.ticketCount = this.bookingService.totalTicketCount;
     };
     showMyTicket = () => {
-        _myTicketService.getTicketData()
+        this.myTicketService.getTicketData()
             .subscribe(
-                data => _this.ticketData = data,
-                this.dataAvailable = true
-                , (error) => {
-
-                }
-            );
+            (data) => {
+                this.ticketData = data
+                    this.dataAvailable = true
+            }
+            , (error) => {
+                this.errorMessage = error;
+            }
+        );
     }
 }
 ```
@@ -416,9 +449,9 @@ In our `main.ts`, we need to import `rxjs` and `http` so that they can be used t
 
 **main.ts**
 ```TypeScript
-import {bootstrap}      from 'angular2/platform/browser';
+import {bootstrap}      from '@angular/platform-browser-dynamic';
 import {AppComponent}   from './app.component';
-import {HTTP_PROVIDERS} from 'angular2/http';
+import {HTTP_PROVIDERS} from '@angular/http';
 import 'rxjs/Rx';
 
 bootstrap(AppComponent, [HTTP_PROVIDERS]);
@@ -440,7 +473,7 @@ in managing `async` calls they still are different from **Promises**.
 Also, we need to make one last change that is registering our `MyTicketService` in the `app.component.ts`:
 
 ```TypeScript
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {BookingService} from "./booking-service";
 import {MyTicketService} from "./myTicket-service";
 import {WindowComponent} from "./window.component";
