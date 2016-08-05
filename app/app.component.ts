@@ -1,7 +1,7 @@
 /**
  * Created by Namita Malik on 4/24/16.
  */
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {BookingService} from "./booking-service";
 import {MyTicketService} from "./myTicket-service";
 import {WindowComponent} from "./window.component";

@@ -1,7 +1,7 @@
 /**
  * Created by Namita Malik on 4/24/16.
  */
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {BookingService} from "./booking-service";
 import {MyTicketService} from "./myTicket-service";
 
@@ -29,23 +29,27 @@ import {MyTicketService} from "./myTicket-service";
 })
 
 export class WindowComponent {
-    constructor(private _bookingService:BookingService, private _myTicketService:MyTicketService) {
+    constructor(public _bookingService:BookingService, public _myTicketService:MyTicketService) {
     }
 
     ticketData = {};
-    dataAvailable = false;
-    ticketCount = _bookingService.totalTicketCount;
+    dataAvailable:boolean = false;
+    ticketCount = this._bookingService.totalTicketCount;
+    errorMessage = '';
     bookTicket = () => {
-        _bookingService.totalTicketCount = _bookingService.totalTicketCount - 1;
-        this.ticketCount = _bookingService.totalTicketCount;
+        this._bookingService.totalTicketCount = this._bookingService.totalTicketCount - 1;
+        this.ticketCount = this._bookingService.totalTicketCount;
     };
     showTicket = () => {
-        _myTicketService.getTicketData()
+        this._myTicketService.getTicketData()
             .subscribe(
-                data => this.ticketData = data,
-                this.dataAvailable = true,
-                (error) => {
-                }
-            );
+            (data) => {
+                this.ticketData = data,
+                    this.dataAvailable = true
+            },
+            (error) => {
+                this.errorMessage = error;
+            }
+        );
     }
 }
