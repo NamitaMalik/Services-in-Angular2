@@ -2,18 +2,17 @@
  * Created by Namita Malik on 4/24/16.
  */
 import {Component} from '@angular/core';
-import {BookingService} from "./booking-service";
-import {MyTicketService} from "./myTicket-service";
 import {WindowComponent} from "./window.component";
 import {BookShowComponent} from "./book-show.component";
+import 'rxjs/Rx';
+
 @Component({
     selector: 'my-app',
     template: `
     <cinema-window></cinema-window>
     <book-show></book-show>
     `,
-    directives: [WindowComponent, BookShowComponent],
-    providers: [BookingService, MyTicketService]
+    directives: [WindowComponent, BookShowComponent]
 })
 
 export class AppComponent {
