@@ -1,0 +1,8 @@
+title: Services in Angular2
+description: This project demonstrates how to use services in Angular2.
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-hacker
+
+gems:
+  - jekyll-mentions
